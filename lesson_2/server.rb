@@ -8,6 +8,5 @@ server = TCPServer.new("localhost", 3003) # server will accept requests sent to 
     puts request_line        # prints request to console 
 
     client.puts request_line  # send back to client so displayed in web browser
-    client.puts rand(500)
     client.close # close connection
   end 
