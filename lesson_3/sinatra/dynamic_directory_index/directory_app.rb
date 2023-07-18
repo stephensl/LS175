@@ -1,9 +1,11 @@
 require "tilt/erubis"
 require "sinatra"
-require "sinatra/reloader"
 
-
-get "/" do 
-  @files = Dir.glob("public/*").map { |file| File.basename(file)}
- 
+get "/" do
+  @order = params[:order] || 'asc'
+  @files = Dir.glob("public/*").map { |file| File.basename(file)}.sort
+  @files.reverse! if @order == 'desc'
+  
+  erb :home
 end 
+

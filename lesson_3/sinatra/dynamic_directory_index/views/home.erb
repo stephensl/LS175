@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Public Directory</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <ul>
+      <% @files.each do |file| %>
+        <li>
+          <a href="<%= file %>"><%= file %></a>
+        </li>
+      <% end %>
+    <ul>
+    <p>
+      <% if @order == 'asc' %>
+        <form action="/" method="get">
+          <input type="hidden" name="order" value="desc">
+          <input type="submit" value="Sort descending">
+        </form>
+      <% else %>
+        <form action="/" method="get">
+          <input type="hidden" name="order" value="asc">
+          <input type="submit" value="Sort ascending">
+        </form>
+      <% end %>
+    </p>
+  </body>
+</html>
+
