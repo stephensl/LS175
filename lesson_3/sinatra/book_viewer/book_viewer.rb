@@ -14,6 +14,10 @@ helpers do
     end.join 
   end 
 
+  def highlight(text, term)
+    text.gsub(term, %(<strong>#{term}</strong))
+  end 
+
 end  
 
 get "/" do

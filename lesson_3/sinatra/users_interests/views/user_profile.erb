@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>User Profile: <%= params[:name] %></title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <h1><%= params[:name].capitalize %></h1>
+    </header>
+      <p><strong>Email Address:</strong> <%= @email %></p>
+      <p><strong>Interests:</strong> <%= @interests.join(", ") %></p>
+  </body>
+</html>
