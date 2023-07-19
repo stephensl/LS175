@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> <%= @title %></title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <%= yield %>
+
+    <%interests_total = count_interests(@user_list)%>
+    <%= "There are #{@user_list.keys.size} users and a total of #{interests_total} interests." %>
+  </body>
+</html>

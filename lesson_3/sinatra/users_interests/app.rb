@@ -1,14 +1,21 @@
+require 'yaml'
+
 require "tilt/erubis"
 require "sinatra"
-require 'yaml'
 
 before do 
   @user_list = YAML.load_file("data/users.yaml")
 end 
 
-get "/" do 
-  "Homepage"
+helpers do 
+  def count_interests(user_list)
+    user_list.reduce(0) do |sum, (name, user)|
+      sum + user[:interests].size  
+    end
+  end 
+end 
 
+get "/" do 
   redirect "/users"
 end 
 

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>User List</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <ul>
-      <% @user_list.each_key do |name|%>
-        <li><a href="/users/<%= name %>"><%= name %></a></li>
-      <% end %>
-    </ul>
-  </body>
-</html>
+<ul>
+  <% @user_list.each_key do |name|%>
+    <li><a href="/users/<%= name %>"><%= name %></a></li>
+  <% end %>
+</ul>
