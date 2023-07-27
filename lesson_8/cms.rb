@@ -10,11 +10,19 @@ end
 
 root = File.expand_path("..", __FILE__)
 
-get "/" do 
+before do 
   @files = Dir.glob(root + "/data/*").map do |path| 
     File.basename(path)
-  end   
+  end 
+end 
 
+helpers do 
+  def file_exists?(file)
+    @files.include?(file)
+  end 
+end 
+
+get "/" do 
   erb :index
 end 
 
@@ -23,5 +31,12 @@ get "/:filename" do
 
   headers["Content-Type"] = "text/plain"
   
-  File.read(file_path)
+  file = params[:filename]
+
+  if file_exists?(file)
+    File.read(file_path)
+  else 
+    session[:message] = "#{file} does not exist."
+    redirect "/"
+  end 
 end 
