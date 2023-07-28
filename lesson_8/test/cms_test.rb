@@ -17,7 +17,7 @@ class AppTest < Minitest::Test
     assert_equal 200, last_response.status
     assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
     assert_includes last_response.body, "history.txt"
-    assert_includes last_response.body, "about.txt"
+    assert_includes last_response.body, "about.md"
     assert_includes last_response.body, "changes.txt"
   end
   
@@ -39,4 +39,12 @@ class AppTest < Minitest::Test
     get "/"
     refute_includes last_response.body, "notafile.txt does not exist." 
   end 
+
+  def test_viewing_markdown_document
+    get "/about.md"
+
+    assert_equal 200, last_response.status
+    assert_equal "text/html;charset=utf-8", last_response["Content-Type"]
+    assert_includes last_response.body, "<h1>Ruby is...</h1>"
+  end
 end 
