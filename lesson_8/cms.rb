@@ -1,6 +1,5 @@
 require "sinatra"
 require "sinatra/reloader" 
-require "sinatra/content_for"
 require "tilt/erubis"
 require "redcarpet"
 
@@ -9,38 +8,54 @@ configure do
   set :session_secret, SecureRandom.hex(32)
 end
 
-root = File.expand_path("..", __FILE__)
-
-before do 
-  @files = Dir.glob(root + "/data/*").map do |path| 
-    File.basename(path)
+def data_path
+  if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/data", __FILE__)
+  else 
+    File.expand_path("../data", __FILE__)
   end 
 end 
 
-helpers do 
-  def render_markdown(text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    markdown.render(text)
-  end 
+def render_markdown(text)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  markdown.render(text)
+end 
 
-  def load_file_content(path)
-    content = File.read(path)
-    case File.extname(path)
-    when ".txt"
-      headers["Content-Type"] = "text/plain"
-      content
-    when ".md"
-      render_markdown(content)
-    end 
+def load_file_content(path)
+  content = File.read(path)
+  case File.extname(path)
+  when ".txt"
+    headers["Content-Type"] = "text/plain"
+    content
+  when ".md"
+    erb render_markdown(content)
   end 
 end 
 
 get "/" do 
+  pattern = File.join(data_path, "*")
+  @files = Dir.glob(pattern).map do |path|
+    File.basename(path)
+  end 
   erb :index
 end 
 
+post "/" do 
+  new_file = params[:new_doc]
+
+  File.new(File.join(data_path, "#{new_file}.txt"), "w")
+
+  session[:message] = "#{new_file} has been created."
+
+  redirect "/"
+end 
+
+get "/new" do 
+  erb :new
+end 
+
 get "/:filename" do 
-  file_path = root + "/data/" + params[:filename]
+  file_path = File.join(data_path, params[:filename])
 
   if File.exist?(file_path)
     load_file_content(file_path)
@@ -51,19 +66,20 @@ get "/:filename" do
 end 
 
 get "/:filename/edit" do 
-  file_path = root + "/data/" + params[:filename]
+  file_path = File.join(data_path, params[:filename])
 
   @filename = params[:filename]
   @content = File.read(file_path)
 
-  erb :edit_text
+  erb :edit
 end 
 
 post "/:filename" do 
-  file_path = root + "/data/" + params[:filename]
+  file_path = File.join(data_path, params[:filename]) 
 
   File.write(file_path, params[:content])
 
   session[:message] = "#{params[:filename]} has been updated."
   redirect "/"
 end 
+
