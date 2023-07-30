@@ -28,6 +28,10 @@ class AppTest < Minitest::Test
     end 
   end 
 
+  def session 
+    last_request.env["rack.session"]
+  end 
+
   def test_index
     create_document("about.md")
     create_document("changes.txt")
@@ -63,15 +67,7 @@ class AppTest < Minitest::Test
     get "/notafile.txt"
 
     assert_equal 302, last_response.status 
-
-    get last_response["Location"]
-
-    assert_equal 200, last_response.status 
-    assert_includes last_response.body, "notafile.txt does not exist."
-
-    get "/"
-
-    refute_includes last_response.body, "notafile.txt does not exist." 
+    assert_equal "notafile.txt does not exist.", session[:message]
   end 
 
   def test_editing_document
@@ -87,14 +83,84 @@ class AppTest < Minitest::Test
   def test_updating_document
     post "/changes.txt", content: "new content"
 
-    assert_equal 302, last_response.status 
-
-    get last_response["Location"]
-
-    assert_includes last_response.body, "changes.txt has been updated"
+    assert_equal 302, last_response.status
+    assert_equal "changes.txt has been updated.", session[:message]
 
     get "/changes.txt"
     assert_equal 200, last_response.status
     assert_includes last_response.body, "new content"
+  end 
+
+  def test_view_new_document_form
+    get "/new"
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "<input"
+    assert_includes last_response.body, %q(<button type="submit")
+  end
+
+  def test_create_new_document
+    post "/create", filename: "test.txt"
+    
+    assert_equal 302, last_response.status
+    assert_equal "test.txt has been created.", session[:message]
+
+    get "/"
+    assert_includes last_response.body, "test.txt"
+  end
+
+  def test_create_new_document_without_filename
+    post "/create", filename: ""
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "A name is required"
+  end
+
+  def test_delete_document
+    create_document("test.txt")
+
+    post "/test.txt/delete"
+    
+    assert_equal 302, last_response.status
+    assert_equal "test.txt has been deleted.", session[:message]
+
+    get "/"
+    refute_includes last_response.body, %q(href="test.txt")
+  end 
+
+  def test_signin_form
+    get "/users/signin"
+
+    assert_equal 200, last_response.status 
+    assert_includes last_response.body, "<input"
+    assert_includes last_response.body, %q(<button type="submit")
+  end 
+
+  def test_signin
+    post "/users/signin", username: "admin", password: "secret"
+    assert_equal 302, last_response.status 
+    assert_equal "Welcome!", session[:message]
+    assert_equal "admin", session[:username]
+
+    get last_response["Location"]
+    assert_includes last_response.body, "Signed in as admin"
+  end 
+
+  def test_signin_with_bad_credentials
+    post "/users/signin", username: "guest", password: "shhhh"
+    assert_equal 422, last_response.status 
+    assert_nil session[:username]
+    assert_includes last_response.body, "Invalid credentials"
+  end 
+
+  def test_signout 
+    get "/", {}, {"rack.session" => {username: "admin"} }
+    assert_includes last_response.body, "Signed in as admin"
+
+    post "/users/signout"
+    assert_equal "You have been signed out.", session[:message]
+
+    get last_response["Location"]
+    assert_nil session[:username]
+    assert_includes last_response.body, "Sign In"
   end 
 end 

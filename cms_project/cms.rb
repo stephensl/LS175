@@ -40,18 +40,50 @@ get "/" do
   erb :index
 end 
 
-post "/" do 
-  new_file = params[:new_doc]
-
-  File.new(File.join(data_path, "#{new_file}.txt"), "w")
-
-  session[:message] = "#{new_file} has been created."
-
-  redirect "/"
+get "/users/signin" do 
+  erb :signin
 end 
+
+post "/users/signin" do
+  username = "admin"
+  password = "secret"
+
+  if params[:username] == username && params[:password] == password 
+    session[:username] = params[:username]
+    session[:message] = "Welcome!"
+    redirect "/"
+  else 
+    session[:message] = "Invalid credentials."
+    status 422
+    erb :signin
+  end 
+end 
+
+post "/users/signout" do 
+  session.delete(:username)
+  session[:message] = "You have been signed out."
+  redirect "/"
+end
 
 get "/new" do 
   erb :new
+end 
+
+post "/create" do 
+  filename = params[:filename].to_s
+
+  if filename.size == 0 
+    session[:message] = "A name is required."
+    status 422
+    erb :new 
+  else 
+    file_path = File.join(data_path, filename)
+
+    File.write(file_path, "")
+    session[:message] = "#{params[:filename]} has been created."
+
+    redirect "/"
+  end 
 end 
 
 get "/:filename" do 
@@ -83,3 +115,11 @@ post "/:filename" do
   redirect "/"
 end 
 
+post "/:filename/delete" do 
+  file_path = File.join(data_path, params[:filename])
+
+  File.delete(file_path)
+
+  session[:message] = "#{params[:filename]} has been deleted."
+  redirect "/"
+end
