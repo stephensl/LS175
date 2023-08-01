@@ -2,6 +2,8 @@ require "sinatra"
 require "sinatra/reloader" 
 require "tilt/erubis"
 require "redcarpet"
+require 'yaml'
+require 'bcrypt'
 
 configure do
   enable :sessions
@@ -32,6 +34,15 @@ def render_markdown(text)
   markdown.render(text)
 end 
 
+def load_user_credentials
+  credentials_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/users.yml", __FILE__)
+  else 
+    File.expand_path("../users.yml", __FILE__)
+  end 
+  YAML.load_file(credentials_path)
+end 
+
 def load_file_content(path)
   content = File.read(path)
   case File.extname(path)
@@ -56,10 +67,10 @@ get "/users/signin" do
 end 
 
 post "/users/signin" do
-  username = "admin"
-  password = "secret"
+  credentials = load_user_credentials
+  username = params[:username]
 
-  if params[:username] == username && params[:password] == password 
+  if credentials.key?(username) && BCrypt::Password.new(credentials[username]) == params[:password]
     session[:username] = params[:username]
     session[:message] = "Welcome!"
     redirect "/"
