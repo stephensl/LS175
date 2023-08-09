@@ -7,6 +7,6 @@ gem "webrick"
 gem "rack-test"
 gem "redcarpet"
 gem "bcrypt"
-
+gem "minitest"
 
 ruby "3.2.2"
