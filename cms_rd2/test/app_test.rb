@@ -25,6 +25,10 @@ class AppTest < Minitest::Test
     File.open(File.join(data_path, name), "w") do |file|
       file.write(content)
     end 
+
+  def session 
+    last_request.env["rack.session"]
+  end 
   end 
 
   def test_index
@@ -75,5 +79,22 @@ class AppTest < Minitest::Test
     assert_equal 200, last_response.status 
     assert_includes last_response.body, "<h1>Headline</h1>"
   end 
+
+  def test_edit_file
+    create_document("test.txt", "L is for the way you...")
+
+    get "/test.txt/edit"
+    assert_equal 200, last_response.status 
+    assert_includes last_response.body, "L is for the"
+
+    post "/test.txt", { content: "look at me" }
+    assert_equal 302, last_response.status 
+    assert_equal "test.txt has been updated.", session[:message]
+
+    get "/test.txt"
+    assert_equal 200, last_response.status 
+    assert_includes last_response.body, "look at me"
+  end 
+
 
 end
