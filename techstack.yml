@@ -1,0 +1,182 @@
+repo_name: stephensl/LS175
+report_id: f93859fff4d9f8b7059ae9471486620a
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-09T19:25:48+00:00'
+requested_by: stephensl
+provider: github
+branch: main
+detected_tools_count: 13
+tools:
+- name: CSS 3
+  description: The latest evolution of the Cascading Style Sheets language
+  website_url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/stephensl/LS175
+  detection_source: Repo Metadata
+- name: Ruby
+  description: A dynamic, interpreted, open source programming language with a focus
+    on simplicity and productivity
+  website_url: https://www.ruby-lang.org
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/989/ruby.png
+  detection_source_url: https://github.com/stephensl/LS175
+  detection_source: Repo Metadata
+- name: Sinatra
+  description: Classy web-development dressed in a DSL
+  website_url: http://www.sinatrarb.com/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Microframeworks (Backend)
+  image_url: https://img.stackshare.io/service/999/logo.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-27 10:05:41.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/stephensl/LS175
+  detection_source: Repo Metadata
+- name: RubyGems
+  description: Easily download, install, and use ruby software packages on your system
+  website_url: https://rubygems.org/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/service/12795/5jL6-BA5_400x400.jpeg
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/lesson_3/rack_project/Gemfile
+  detection_source: lesson_3/rack_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-17 18:19:30.000000000 Z
+- name: bcrypt
+  description: Bcrypt
+  package_url: https://rubygems.org/bcrypt
+  version: 3.1.19
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/19054/default_2be036aaca5c71baf790e00f1ef80dd37a625905.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-08-01 03:13:20.000000000 Z
+- name: erubis
+  description: 'Erubis is an implementation of eRuby and has the following features:
+    * Very fast, almost three times faster than ERB and about 10% faster than eruby'
+  package_url: https://rubygems.org/erubis
+  version: 2.7.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/18951/default_310421aa2a25d1a0887d82eef53bba1245fcdb4e.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-27 10:05:41.000000000 Z
+- name: minitest
+  description: Minitest provides a complete suite of testing facilities supporting
+    TDD, BDD, mocking, and benchmarking
+  package_url: https://rubygems.org/minitest
+  version: 5.19.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/18818/default_f36df1cfa9ff6061d7f9b4879088be8538581c49.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_rd2/Gemfile.lock
+  detection_source: cms_rd2/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-08-09 10:46:45.000000000 Z
+- name: rack
+  description: Rack provides a minimal, modular and adaptable interface for developing
+    web applications in Ruby
+  package_url: https://rubygems.org/rack
+  version: 2.2.7
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/18839/default_db5cfb0d85d9fd8bfb40a863581417a2a57791ab.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: lesson_3/rack_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-17 18:19:30.000000000 Z
+- name: rack-test
+  description: Rack::Test is a small, simple testing API for Rack apps
+  package_url: https://rubygems.org/rack-test
+  version: 2.1.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/18845/default_db5cfb0d85d9fd8bfb40a863581417a2a57791ab.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-27 21:47:56.000000000 Z
+- name: redcarpet
+  description: A fast, safe and extensible Markdown to
+  package_url: https://rubygems.org/redcarpet
+  version: 3.6.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/18853/default_b87d202e13d56f87c63181fa49bc5e099c9abaac.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-28 10:46:00.000000000 Z
+- name: sinatra-contrib
+  description: Collection of useful Sinatra extensions
+  package_url: https://rubygems.org/sinatra-contrib
+  version: 3.0.6
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/19010/default_4361ccfae4dee655802081d8182ddcaebd7a2b3f.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-27 10:05:41.000000000 Z
+- name: webrick
+  description: WEBrick is an HTTP server toolkit that can be configured as an HTTPS
+    server
+  package_url: https://rubygems.org/webrick
+  version: 1.8.1
+  license: BSD-2-Clause
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: RubyGems Packages
+  image_url: https://img.stackshare.io/package/19444/default_e747a715ce0379afdb68c78657d70e4a512bf5f4.png
+  detection_source_url: https://github.com/stephensl/LS175/blob/main/cms_project/Gemfile.lock
+  detection_source: cms_project/Gemfile
+  last_updated_by: Lawton Stephens
+  last_updated_on: 2023-07-27 10:05:41.000000000 Z
